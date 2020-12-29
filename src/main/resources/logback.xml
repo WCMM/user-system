@@ -1,0 +1,140 @@
+<!--
+<?xml version="1.0" encoding="UTF-8"?>
+&lt;!&ndash; 分级别异步文件日志输出配置 &ndash;&gt;
+<configuration>
+&lt;!&ndash; 日志级别 &ndash;&gt;
+<property name="logLevel" value="INFO"></property>
+&lt;!&ndash; 日志地址 &ndash;&gt;
+&lt;!&ndash; 最大保存时间 &ndash;&gt;
+<property name="maxHistory" value="30"/>
+&lt;!&ndash; 异步缓冲队列的深度,该值会影响性能.默认值为256 &ndash;&gt;
+<property name="queueSize" value="512"></property>
+
+<springProperty scope="context" name="LOG_FILE_DEBUG" source="logging.debugPath"/>
+<springProperty scope="context" name="LOG_FILE_INFO" source="logging.infoPath"/>
+<springProperty scope="context" name="LOG_FILE_ERROR" source="logging.errorPath"/>
+<springProperty scope="context" name="LOG_FILE_WARN" source="logging.warnPath"/>
+<springProperty scope="context" name="LOG_FILE_DEFAULT" source="logging.defaultPath"/>
+
+<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+    </encoder>
+</appender>
+
+<appender name="FILE_DEBUG"
+          class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        <level>DEBUG</level>
+        <onMatch>ACCEPT</onMatch>
+        <onMismatch>DENY</onMismatch>
+    </filter>
+    <file>${LOG_FILE_DEBUG}</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_FILE_DEBUG}.%d{yyyy-MM-dd}.zip
+        </fileNamePattern>
+        <maxHistory>${maxHistory}</maxHistory>
+    </rollingPolicy>
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+    </encoder>
+</appender>
+<appender name="FILE_INFO"
+          class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        <level>INFO</level>
+        <onMatch>ACCEPT</onMatch>
+        <onMismatch>DENY</onMismatch>
+    </filter>
+    <file>${LOG_FILE_INFO}</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_FILE_INFO}.%d{yyyy-MM-dd}.zip
+        </fileNamePattern>
+        <maxHistory>${maxHistory}</maxHistory>
+    </rollingPolicy>
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+    </encoder>
+</appender>
+
+<appender name="FILE_WARN"
+          class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        <level>WARN</level>
+        <onMatch>ACCEPT</onMatch>
+        <onMismatch>DENY</onMismatch>
+    </filter>
+    <file>${LOG_FILE_WARN}</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_FILE_WARN}.%d{yyyy-MM-dd}.zip
+        </fileNamePattern>
+        <maxHistory>${maxHistory}</maxHistory>
+    </rollingPolicy>
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+    </encoder>
+</appender>
+<appender name="FILE_ERROR"
+          class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        <level>ERROR</level>
+        <onMatch>ACCEPT</onMatch>
+        <onMismatch>DENY</onMismatch>
+    </filter>
+    <file>${LOG_FILE_ERROR}</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_FILE_ERROR}.%d{yyyy-MM-dd}.zip
+        </fileNamePattern>
+        <maxHistory>${maxHistory}</maxHistory>
+    </rollingPolicy>
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+    </encoder>
+</appender>
+
+<appender name="ASYNC_LOG_DEBUG" class="ch.qos.logback.classic.AsyncAppender">
+    &lt;!&ndash; 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 &ndash;&gt;
+    <discardingThreshold>0</discardingThreshold>
+    &lt;!&ndash; 更改默认的队列的深度,该值会影响性能.默认值为256 &ndash;&gt;
+    <queueSize>${queueSize}</queueSize>
+    <appender-ref ref="FILE_DEBUG"/>
+</appender>
+<appender name="ASYNC_LOG_INFO" class="ch.qos.logback.classic.AsyncAppender">
+    &lt;!&ndash; 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 &ndash;&gt;
+    <discardingThreshold>0</discardingThreshold>
+    &lt;!&ndash; 更改默认的队列的深度,该值会影响性能.默认值为256 &ndash;&gt;
+    <queueSize>${queueSize}</queueSize>
+    <appender-ref ref="FILE_INFO"/>
+</appender>
+<appender name="ASYNC_LOG_WARN" class="ch.qos.logback.classic.AsyncAppender">
+    &lt;!&ndash; 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 &ndash;&gt;
+    <discardingThreshold>0</discardingThreshold>
+    &lt;!&ndash; 更改默认的队列的深度,该值会影响性能.默认值为256 &ndash;&gt;
+    <queueSize>${queueSize}</queueSize>
+    <appender-ref ref="FILE_WARN"/>
+</appender>
+<appender name="ASYNC_LOG_ERROR" class="ch.qos.logback.classic.AsyncAppender">
+    &lt;!&ndash; 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 &ndash;&gt;
+    <discardingThreshold>0</discardingThreshold>
+    &lt;!&ndash; 更改默认的队列的深度,该值会影响性能.默认值为256 &ndash;&gt;
+    <queueSize>${queueSize}</queueSize>
+    <appender-ref ref="FILE_ERROR"/>
+</appender>
+&lt;!&ndash;配置mybatis sql 日志&ndash;&gt;
+<logger name="com.jis.platform.dc.admin.mapper" level="DEBUG"/>
+<root level="${logLevel}">
+    &lt;!&ndash; appender referenced after it is defined &ndash;&gt;
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="ASYNC_LOG_DEBUG"/>
+    <appender-ref ref="ASYNC_LOG_INFO"/>
+    <appender-ref ref="ASYNC_LOG_WARN"/>
+    <appender-ref ref="ASYNC_LOG_ERROR"/>
+</root>
+</configuration>
+-->
+
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <jmxConfigurator/>
+    <logger name="com.example.demo.mapper" level="DEBUG"/>
+</configuration>

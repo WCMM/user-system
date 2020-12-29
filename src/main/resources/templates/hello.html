@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>token</title>
+    <!-- 引入 echarts.js -->
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+</head>
+<body>
+用户名：<input type="text" id="username"><br><br>
+密  码：<input type="text" id="pwd"><br>
+<button onclick="getlogin()">登录</button>
+
+<script type="text/javascript">
+
+    function getlogin(){
+
+        alert($("#username").val());
+        alert($("#pwd").val());
+
+        $.ajax({
+            type: "get",
+            url: "http://localhost:8080/loginUser",
+            data:{
+                "loginName":$("#username").val(),
+                "password":$("#pwd").val()
+            },
+            xhrFields:{withCredentials:true},
+            beforeSend: function(XMLHttpRequest){
+            },
+            //请求成功回调
+            success: function(data, textStatus){
+                alert("进来了");
+                alert(data.login);
+                alert(data.token);
+                if(data.login){
+
+                    localStorage.setItem("token",data.token);
+
+                    window.location.href ="success";
+
+                }
+
+            },
+            complete: function(XMLHttpRequest, textStatus){
+
+            },
+            error: function(){
+                alert("请求网络失败！。。。。。。");
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.PMaterielUpdateInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.entity.PMaterielUpdateInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="materiel_id" property="materielId" jdbcType="INTEGER" />
+    <result column="cancel_id" property="cancelId" jdbcType="INTEGER" />
+    <result column="cancel_date" property="cancelDate" jdbcType="TIMESTAMP" />
+    <result column="apply_remark" property="applyRemark" jdbcType="VARCHAR" />
+    <result column="update_remark" property="updateRemark" jdbcType="VARCHAR" />
+    <result column="camcel_remark" property="camcelRemark" jdbcType="VARCHAR" />
+    <result column="times" property="times" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="regenerator" property="regenerator" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, materiel_id, cancel_id, cancel_date, apply_remark, update_remark, camcel_remark, 
+    times, is_delete, creator, create_date, update_date, regenerator
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from p_materiel_update_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from p_materiel_update_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.entity.PMaterielUpdateInfo" >
+    insert into p_materiel_update_info (id, materiel_id, cancel_id, 
+      cancel_date, apply_remark, update_remark, 
+      camcel_remark, times, is_delete, 
+      creator, create_date, update_date, 
+      regenerator)
+    values (#{id,jdbcType=INTEGER}, #{materielId,jdbcType=INTEGER}, #{cancelId,jdbcType=INTEGER}, 
+      #{cancelDate,jdbcType=TIMESTAMP}, #{applyRemark,jdbcType=VARCHAR}, #{updateRemark,jdbcType=VARCHAR}, 
+      #{camcelRemark,jdbcType=VARCHAR}, #{times,jdbcType=INTEGER}, #{isDelete,jdbcType=INTEGER}, 
+      #{creator,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{regenerator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.entity.PMaterielUpdateInfo" >
+    insert into p_materiel_update_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="materielId != null" >
+        materiel_id,
+      </if>
+      <if test="cancelId != null" >
+        cancel_id,
+      </if>
+      <if test="cancelDate != null" >
+        cancel_date,
+      </if>
+      <if test="applyRemark != null" >
+        apply_remark,
+      </if>
+      <if test="updateRemark != null" >
+        update_remark,
+      </if>
+      <if test="camcelRemark != null" >
+        camcel_remark,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="regenerator != null" >
+        regenerator,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="materielId != null" >
+        #{materielId,jdbcType=INTEGER},
+      </if>
+      <if test="cancelId != null" >
+        #{cancelId,jdbcType=INTEGER},
+      </if>
+      <if test="cancelDate != null" >
+        #{cancelDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyRemark != null" >
+        #{applyRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateRemark != null" >
+        #{updateRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="camcelRemark != null" >
+        #{camcelRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regenerator != null" >
+        #{regenerator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.entity.PMaterielUpdateInfo" >
+    update p_materiel_update_info
+    <set >
+      <if test="materielId != null" >
+        materiel_id = #{materielId,jdbcType=INTEGER},
+      </if>
+      <if test="cancelId != null" >
+        cancel_id = #{cancelId,jdbcType=INTEGER},
+      </if>
+      <if test="cancelDate != null" >
+        cancel_date = #{cancelDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyRemark != null" >
+        apply_remark = #{applyRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="updateRemark != null" >
+        update_remark = #{updateRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="camcelRemark != null" >
+        camcel_remark = #{camcelRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        times = #{times,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regenerator != null" >
+        regenerator = #{regenerator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.entity.PMaterielUpdateInfo" >
+    update p_materiel_update_info
+    set materiel_id = #{materielId,jdbcType=INTEGER},
+      cancel_id = #{cancelId,jdbcType=INTEGER},
+      cancel_date = #{cancelDate,jdbcType=TIMESTAMP},
+      apply_remark = #{applyRemark,jdbcType=VARCHAR},
+      update_remark = #{updateRemark,jdbcType=VARCHAR},
+      camcel_remark = #{camcelRemark,jdbcType=VARCHAR},
+      times = #{times,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      creator = #{creator,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      regenerator = #{regenerator,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
